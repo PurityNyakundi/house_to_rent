@@ -1,0 +1,9 @@
+{
+    "path" : "D:/codebase/house_to_rent",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

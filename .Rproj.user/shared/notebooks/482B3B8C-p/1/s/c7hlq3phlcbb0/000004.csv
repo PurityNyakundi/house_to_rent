@@ -1,0 +1,3 @@
+"0",""
+"0","outliers<-boxplot(houseData$area,plot = F)$out"
+"0","houseData[which(houseData$area%in%outliers),]"

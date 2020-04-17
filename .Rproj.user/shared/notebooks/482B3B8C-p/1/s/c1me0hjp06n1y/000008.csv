@@ -1,0 +1,8 @@
+"0","#lets first leave the outliers"
+"0","#we have to drop some variable"
+"0","houseData<-houseData"
+"0","drop<-houseData[,c(2,9,10,11,12)]"
+"0","houseData1<-houseData[,-c(2,9,10,11,12)]"
+"0","houseData1$furniture<-ifelse(houseData1$furniture==""not furnished"",1,0)"
+"0","houseData1$furniture<-as.factor(houseData1$furniture)"
+"0","head(houseData1)"

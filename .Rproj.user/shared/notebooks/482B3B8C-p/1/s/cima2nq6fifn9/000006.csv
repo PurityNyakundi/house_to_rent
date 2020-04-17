@@ -1,0 +1,6 @@
+"0","library(ggplot2)"
+"0","ggplot(houseData,aes(city,fill = furniture))+"
+"0","  geom_histogram(stat = ""count"")+"
+"0","  ggtitle(""Check the house distribution in different cities"")+"
+"0","  ylab(""number of houses in each city"")"
+"2","Ignoring unknown parameters: binwidth, bins, pad"

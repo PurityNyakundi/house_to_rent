@@ -1,0 +1,3 @@
+"0","ggplot(houseData,aes(x = round(rooms),y = log(total),fill = furniture))+"
+"0","  geom_col()+"
+"0","  facet_wrap(~city)"

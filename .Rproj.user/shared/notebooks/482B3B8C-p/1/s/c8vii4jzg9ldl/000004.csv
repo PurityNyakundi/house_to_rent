@@ -1,0 +1,2 @@
+"0","ggplot(houseData,mapping=aes(x = rooms,y = fire.insurance,fill = city))+"
+"0","  geom_col()"

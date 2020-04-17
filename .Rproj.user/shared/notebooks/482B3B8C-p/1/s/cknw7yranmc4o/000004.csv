@@ -1,0 +1,7 @@
+"0","#check the bathrooms"
+"0","houseData%>%"
+"0","  group_by(bathroom)%>%"
+"0","  summarise(count = n())%>%"
+"0","ggplot(houseData,mapping = aes(y = count,x = bathroom),color = ""blue"")+"
+"0","  geom_col()"
+"0",""

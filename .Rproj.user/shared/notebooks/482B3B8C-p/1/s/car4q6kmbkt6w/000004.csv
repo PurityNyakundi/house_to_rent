@@ -1,0 +1,5 @@
+"0","houseData%>%"
+"0","  group_by(furniture)%>%"
+"0","  summarise(count = n())%>%"
+"0","ggplot(houseData,mapping = aes(y = count,x =furniture),color = ""blue"")+"
+"0","  geom_col()"

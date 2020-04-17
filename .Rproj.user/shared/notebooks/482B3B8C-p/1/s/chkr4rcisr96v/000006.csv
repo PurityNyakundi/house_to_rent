@@ -1,0 +1,2 @@
+"0","houseData<-read.csv(""houses_to_rent.csv"",stringsAsFactors = F,header = T)"
+"0","head(houseData)"

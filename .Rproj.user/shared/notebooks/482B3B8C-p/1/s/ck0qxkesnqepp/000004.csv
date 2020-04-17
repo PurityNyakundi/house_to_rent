@@ -1,0 +1,2 @@
+"0","houseData3<-cbind(houseData2,houseData1[7])"
+"0","head(houseData3)"

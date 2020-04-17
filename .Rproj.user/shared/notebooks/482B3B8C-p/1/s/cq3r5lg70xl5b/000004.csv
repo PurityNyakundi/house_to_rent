@@ -1,0 +1,5 @@
+"0","houseData%>%"
+"0","  group_by(floor)%>%"
+"0","  summarise(count = n())%>%"
+"0","  ggplot(houseData,mapping = aes(reorder(floor,count,FUN = mode),floor))+"
+"0","  geom_col()"

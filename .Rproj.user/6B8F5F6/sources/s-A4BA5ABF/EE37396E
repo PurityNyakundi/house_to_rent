@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1587027096088.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "EE37396E",
+    "lastKnownWriteTime" : 4189038620904877679,
+    "last_content_update" : 1587027096088,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "2B57A475",
+        "caption" : "houses_to_rent",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=houses_to_rent&cache_key=2B57A475",
+        "displayedObservations" : 6080,
+        "environment" : "",
+        "expression" : "houses_to_rent",
+        "object" : "houses_to_rent",
+        "preview" : 0,
+        "totalObservations" : 6080,
+        "variables" : 14
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

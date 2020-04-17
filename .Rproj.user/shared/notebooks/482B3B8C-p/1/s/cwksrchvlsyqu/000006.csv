@@ -1,0 +1,6 @@
+"0","houseData%>%"
+"0","  group_by(parking.spaces  )%>%"
+"0","  summarise(count = n())%>%"
+"0","ggplot(houseData,mapping = aes(y = count,x = parking.spaces  ))+"
+"0","  geom_col()"
+"0",""

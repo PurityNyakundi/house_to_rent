@@ -1,0 +1,2 @@
+"0","ggplot(houseData,mapping=aes(x = rooms,y = rent.amount,fill = city))+"
+"0","  geom_col()"

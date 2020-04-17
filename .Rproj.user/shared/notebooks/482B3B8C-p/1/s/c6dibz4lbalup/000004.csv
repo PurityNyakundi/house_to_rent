@@ -1,0 +1,4 @@
+"0","#check floor and total"
+"0","ggplot(houseData,aes(x = round(floor),y = log(total),fill = furniture))+"
+"0","  geom_col()+"
+"0","  facet_wrap(~animal)"

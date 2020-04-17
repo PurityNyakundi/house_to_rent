@@ -1,0 +1,374 @@
+#problem statement
+given house to rent data will use it to predict whether a house to be rented is furnished or not.
+#how to solve
+we will use supervised algorithms such as knn,ranger and ogistic regression.
+#load the dataset to the workspace
+```{r}
+houseData<-read.csv("houses_to_rent.csv",stringsAsFactors = F,header = T)
+head(houseData)
+```
+#load the libraries needed for data manipulation
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+```
+#check the shape of the data
+```{r}
+dim(houseData)
+```
+#our data has 6080 rows and 14 columns
+```{r}
+#check the structure
+
+str(houseData)
+```
+
+#try to change the hoa colname
+```{r}
+colnames(houseData)[which(names(houseData)=="hoa")]<-"Homeowner_association_tax"
+str(houseData)
+```
+
+#lets drop the first col
+```{r}
+houseData<-houseData[,-1]
+str(houseData)
+```
+#dropped succesifully
+#for city it is the city where the property is located
+#learn more with an histogram
+```{r}
+hist(houseData$city)
+```
+#from the above there are two levels 0 and 1
+#so city should be a factor variable
+```{r}
+houseData$city<-as.factor(houseData$city)
+str(houseData$city)
+```
+# true as said
+```{r}
+library(ggplot2)
+ggplot(houseData,aes(city,fill = furniture))+
+  geom_histogram(stat = "count")+
+  ggtitle("Check the house distribution in different cities")+
+  ylab("number of houses in each city")
+  
+```
+#from the above it seems lots of people love to rent on city 1 than 0
+#seems the unfunished houses are the most rented in both cities
+```{r}
+houseData%>%
+  group_by(area)%>%
+  summarise(count = n())%>%
+ggplot(houseData,mapping = aes(y = count,x = area))+
+         geom_point()
+  
+```
+#from the above plot it seems the kind of houses that exist for rent,their area is between 10 to 200
+#also we might have outliers in the above two houses are very extreme
+#check area again
+
+```{r}
+summary(houseData$area)
+```
+#the summary says alot
+#that 75% of the houses are 200 and below area
+```{r}
+#check on the no rooms
+ggplot(houseData,aes(rooms))+
+  geom_histogram()
+```
+
+
+
+```{r}
+hist(houseData$rooms)
+```
+```{r}
+houseData%>%
+  group_by(rooms)%>%
+  summarise(count = n())%>%
+ggplot(houseData,mapping = aes(y = count,x = rooms))+
+  geom_col()
+```
+#get the rooms summary
+```{r}
+summary(houseData$rooms)
+```
+#75%of the houses to be rented are with rooms btn 1 and 3 some are extreme
+```{r}
+#check the bathrooms
+houseData%>%
+  group_by(bathroom)%>%
+  summarise(count = n())%>%
+ggplot(houseData,mapping = aes(y = count,x = bathroom),color = "blue")+
+  geom_col()
+
+```
+
+#packing spaces
+```{r}
+houseData%>%
+  group_by(parking.spaces  )%>%
+  summarise(count = n())%>%
+ggplot(houseData,mapping = aes(y = count,x = parking.spaces  ))+
+  geom_col()
+
+```
+#floor seems to have NAs
+#lets check the NAs in the data
+```{r}
+colSums(is.na(houseData))
+```
+#only floors have NAs check for summary
+```{r}
+summary(houseData$floor)
+```
+#EDA to it
+#convert NA 
+```{r}
+houseData%>%
+  group_by(floor)%>%
+  summarise(count = n())%>%
+  ggplot(houseData,mapping = aes(reorder(floor,count,FUN = mode),floor))+
+  geom_col()
+```
+
+
+
+#most of the data in really skewed
+#so the data should be normalized before modelling
+#floors are range 1 to 7
+#as you can think somehouses are at ground floor!how did this data cover for such 
+#what if we replace NA with 0
+```{r}
+houseData$floor<-houseData$floor%>%
+  replace_na(0)%>%
+  head(20)
+str(houseData)
+```
+
+#plot again
+```{r}
+hist(houseData$floor)
+```
+#most of the houses are at ground floor
+#data very skewed
+```{r}
+houseData%>%
+  group_by(furniture)%>%
+  summarise(count = n())%>%
+ggplot(houseData,mapping = aes(y = count,x =furniture),color = "blue")+
+  geom_col()
+```
+```{r}
+houseData%>%
+  group_by(animal)%>%
+  summarise(count = n())%>%
+ggplot(houseData,mapping = aes(y = count,x =animal),color = "blue")+
+  geom_col()
+```
+
+#most houses to be rented accept animals
+```{r}
+houseData$fire.insurance<-parse_number(houseData$fire.insurance,locale = default_locale())
+str(houseData)
+
+```
+```{r}
+houseData$Homeowner_association_tax<-parse_number(houseData$Homeowner_association_tax,locale = default_locale())
+str(houseData)
+```
+
+
+```{r}
+houseData$rent.amount<-parse_number(houseData$rent.amount,locale = default_locale())
+
+str(houseData)
+```
+```{r}
+houseData$total<-parse_number(houseData$total,locale = default_locale())
+
+str(houseData)
+```
+```{r}
+houseData$property.tax<-parse_number(houseData$property.tax,locale = default_locale())
+
+str(houseData)
+
+```
+```{r}
+
+
+str(houseData)
+```
+```{r}
+glimpse(houseData)
+```
+
+
+```{r}
+#glimpse(houseData)
+str(houseData)
+```
+
+```{r}
+
+glimpse(houseData)
+tail(houseData)
+str(houseData)
+houseData
+
+```
+```{r}
+houseData<-na.omit(houseData)
+colSums(is.na(houseData))
+dim(houseData)
+```
+
+
+```{r}
+glimpse(houseData)
+```
+#i hope the data is clean now
+```{r}
+ggplot(houseData,aes(x = round(rooms),y = log(total),fill = furniture))+
+  geom_col()+
+  facet_wrap(~city)
+```
+#furnished houses are more expensive compared to the not furnished ones
+#city 1 is is where the most houses are,hence the total amount for the houses is expensive.
+#it also seems houses with fewer rooms are the most expensive ones
+#For 3 roomed houses are the most expensive since most families tend to purchase those ones.
+
+```{r}
+#check floor and total
+ggplot(houseData,aes(x = round(floor),y = log(total),fill = furniture))+
+  geom_col()+
+  facet_wrap(~animal)
+```
+#the data is from kaggle so its from the west nations
+#most people would rent places which accept animals i.e pets so most likely to be rented
+#most people would like to rent ground floor
+```{r}
+#check which area are more for renting per city
+houseData%>%
+  group_by(city,area)%>%
+  summarise(count = n())%>%
+  arrange(desc(count))%>%
+  ggplot(houseData,mapping=aes(x = area,y = count,fill = city))+
+  geom_col()+
+  xlim(0,250)
+  
+```
+#more houses to be rented are between an area of 14 to 250
+#lets check area and total amount to be paid for the house
+```{r}
+ggplot(houseData,mapping=aes(x = area,y =log(total)))+
+  geom_col()+
+  xlim(0,250)
+```
+#area has extreme values that would affect the data during modelling.
+#taxes 
+```{r}
+ggplot(houseData,mapping=aes(x = rooms,y = rent.amount,fill = city))+
+  geom_col()
+```
+```{r}
+ggplot(houseData,mapping=aes(x = rooms,y = fire.insurance,fill = city))+
+  geom_col()
+```
+#since the total contains all taxes it affets the data equally
+```{r}
+
+outliers<-boxplot(houseData$area,plot = F)$out
+houseData[which(houseData$area%in%outliers),]
+
+str(houseData)
+```
+```{r}
+#lets first leave the outliers
+#we have to drop some variable
+houseData<-houseData
+drop<-houseData[,c(2,9,10,11,12)]
+houseData1<-houseData[,-c(2,9,10,11,12)]
+houseData1$furniture<-ifelse(houseData1$furniture=="not furnished",1,0)
+houseData1$furniture<-as.factor(houseData1$furniture)
+head(houseData1)
+```
+```{r}
+head(houseData1)
+normalize <- function(x) {
+return ((x - min(x)) / (max(x) - min(x)))
+}
+
+
+houseData2<-as.data.frame(lapply(houseData1[,c(2,3,4,5,8)],normalize))
+summary(houseData2)
+head(houseData2)
+```
+
+
+
+```{r}
+traink<-houseData2[1:890,]
+head(traink)
+
+```
+```{r}
+testk<-houseData2[891:1400,]
+head(traink)
+```
+
+```{r}
+trainkr<-houseData1[1:890,7]
+head(trainkr)
+testkr<-houseData1[891:1400,7]
+head(testkr)
+```
+```{r}
+library(class)
+modelk<-knn(traink,testk,cl = trainkr,k = 4)
+summary(modelk)
+table(testkr,modelk )
+mean(testkr==modelk)
+```
+
+#for knn the accuracy is not that pleasing
+#lets train another classification algorithm model
+```{r}
+houseData3<-cbind(houseData2,houseData1[7])
+head(houseData3)
+```
+
+```{r}
+#separate again the training and testing data
+train<-houseData3[1:890,]
+test<-houseData3[891:1400,]
+
+```
+
+```{r}
+
+library(ranger)
+model2<-ranger(furniture~.,data = train,num.trees = 500,respect.unordered.factors = "order")
+pred<-predict(model2,test)
+table(test$furniture,pred$predictions)
+mean(test$furniture==pred$predictions)
+
+```
+
+#ranger is doing good than knn
+#now logistic regression
+```{r}
+lmodel<-glm(furniture~.,data = train,family = "binomial")
+summary(lmodel)
+prob<-predict(lmodel,test)
+predl<-ifelse(prob>0.56,1,0)
+mean(test$furniture==predl)
+
+```
+# more to come
+

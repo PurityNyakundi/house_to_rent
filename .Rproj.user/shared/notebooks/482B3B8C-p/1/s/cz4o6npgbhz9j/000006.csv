@@ -1,0 +1,5 @@
+"0","houseData%>%"
+"0","  group_by(rooms)%>%"
+"0","  summarise(count = n())%>%"
+"0","ggplot(houseData,mapping = aes(y = count,x = rooms))+"
+"0","  geom_col()"

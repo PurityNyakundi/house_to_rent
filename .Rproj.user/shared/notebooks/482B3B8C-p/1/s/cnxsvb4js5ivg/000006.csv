@@ -1,0 +1,3 @@
+"0","#check on the no rooms"
+"0","ggplot(houseData,aes(rooms))+"
+"0","  geom_histogram()"

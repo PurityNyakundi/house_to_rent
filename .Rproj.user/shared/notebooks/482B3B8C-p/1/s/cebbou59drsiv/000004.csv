@@ -1,0 +1,8 @@
+"0","#check which area are more for renting per city"
+"0","houseData%>%"
+"0","  group_by(city,area)%>%"
+"0","  summarise(count = n())%>%"
+"0","  arrange(desc(count))%>%"
+"0","  ggplot(houseData,mapping=aes(x = area,y = count,fill = city))+"
+"0","  geom_col()+"
+"0","  xlim(0,250)"

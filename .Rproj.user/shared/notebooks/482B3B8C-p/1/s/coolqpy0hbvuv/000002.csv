@@ -1,0 +1,4 @@
+"0","#separate again the training and testing data"
+"0","train<-houseData3[1:890,]"
+"0","test<-houseData3[891:1400,]"
+"0",""
